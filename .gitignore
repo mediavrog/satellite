@@ -27,7 +27,13 @@ pkg
 #
 # For MacOS:
 #
-#.DS_Store
+.DS_Store
+
+# RubyMine
+.idea
+
+# RVM
+.rvmrc
 
 # For TextMate
 #*.tmproj
