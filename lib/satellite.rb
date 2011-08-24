@@ -1,11 +1,11 @@
 require 'open-uri'
 
-# load string helpers
+# stub some ActiveSupport functionality
 unless Object.const_defined?("ActiveSupport")
   Dir.glob(File.dirname(__FILE__) + '/support/*') { |file| require file }
 end
 
-# load adapters
+# load tracking adapters
 Dir.glob(File.dirname(__FILE__) + '/satellite/adapters/*') { |file| require file }
 
 module Satellite
