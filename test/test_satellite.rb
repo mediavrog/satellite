@@ -49,10 +49,21 @@ class TestSatellite < Test::Unit::TestCase
           #:utmhid => '1655425535', auto
           :utmr => 'test.local/properly track a page view',
           :utmp => '/test/properly-track-page-view',
-          :utmac => GOOGLE_ACCOUNT_ID
+          #:utmac => nil, #set via 'Satellite::Adapters::GoogleAnalytics.account_id' in local_conf.rb
       })
-      
+
       assert_equal tracker.track_page_view, true
+    end
+
+    context 'utme' do
+
+      should "properly parse given utme string" do
+        utme_string = '5(controller*action*coupon_redeem)(10)8(test*test2)9(Please_track_this*Tracking with whitepsace)11(1)'
+
+        utme = Satellite::Adapters::GoogleAnalytics::Utme.parse(utme_string)
+
+        assert_equal utme.to_s, utme_string
+      end
     end
   end
 end

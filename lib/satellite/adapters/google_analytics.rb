@@ -2,20 +2,24 @@ module Satellite
   module Adapters
     class GoogleAnalytics
 
+      attr_accessor :debug, :user_agent, :accept_language
+
       def initialize(params, use_ssl=false)
         self.utm_params = extend_with_default_params(params)
         self.utm_location = (use_ssl ? 'https://ssl' : 'http://www') + UTM_GIF_LOCATION
       end
 
       def track
-        #puts utm_params.inspect
-
         utm_url = tracking_url
 
-        puts "--------sending request to GA-----------------------"
-        puts utm_url
+        #if (debug == true)
+          puts "--------sending request to GA-----------------------"
+          puts utm_params.inspect
+          puts utm_url
+        #end
 
-        open(utm_url, { "User-Agent" => 'Satellite/0.0.0', "Accept-Language" => 'de' })
+        # actually send request
+        open(utm_url, { "User-Agent" => 'Satellite/0.1.1', "Accept-Language" => utm_params[:utmul] || 'de' })
 
         # reset events / custom variables here
         utm_params.delete(:utme)
@@ -125,13 +129,13 @@ module Satellite
 
         @@regex_event = /5\((\w+)\*(\w+)(\*(\w+))?\)(\((\d+)\))?/
         @@regex_custom_variables = /8\(([^\)]*)\)9\(([^\)]*)\)(11\(([^\)]*)\))?/
-        @@regex_custom_variable_value = /((\d)!)?(\w+)/
+        @@regex_custom_variable_value = /((\d)!)?([^\(\*]+)/
 
         def parse(args)
           return self.new if args.nil?
           case args
             when String
-              return self.from_string(args)
+              return self.from_string(args.dup)
             when self
               return args
             else

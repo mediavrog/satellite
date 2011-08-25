@@ -15,7 +15,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'satellite'
 
 # used for storing private data like google account_id
-require 'local_conf' if File.exists?('local_conf.rb')
+require 'local_conf' if File.exists?(File.dirname(__FILE__) + '/local_conf.rb')
 
 class Test::Unit::TestCase
 end
