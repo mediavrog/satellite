@@ -19,7 +19,7 @@ module Satellite
         #end
 
         # actually send request
-        open(utm_url, { "User-Agent" => 'Satellite/0.1.1', "Accept-Language" => utm_params[:utmul] || 'de' })
+        open(utm_url, { "User-Agent" => 'Satellite/0.2.1', "Accept-Language" => utm_params[:utmul] || 'de' })
 
         # reset events / custom variables here
         utm_params.delete(:utme)
@@ -69,7 +69,8 @@ module Satellite
 
       # seems to be the current version
       # search for 'utmwv' in http://www.google-analytics.com/ga.js
-      VERSION = "4.4sh" #"5.1.5"
+      #VERSION = '4.4sh'
+      VERSION = '5.1.5'
       UTM_GIF_LOCATION = ".google-analytics.com/__utm.gif"
 
       # adds default params

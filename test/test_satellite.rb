@@ -53,18 +53,28 @@ class TestSatellite < Test::Unit::TestCase
     #utmu
     should "properly track a page view" do
       tracker = Satellite.get_tracker(:google_analytics, VALID_GOOGLE_ANALYTICS_PARAMS)
+      assert_equal tracker.track_page_view, true
+    end
 
+    should "properly track a custom variable" do
+      tracker = Satellite.get_tracker(:google_analytics, VALID_GOOGLE_ANALYTICS_PARAMS)
+      tracker.set_custom_variable(1, 'test', 'unit-tester')
       assert_equal tracker.track_page_view, true
     end
 
     should "properly track a page view with given path" do
       tracker = Satellite.get_tracker(:google_analytics, VALID_GOOGLE_ANALYTICS_PARAMS)
-      
+
       path = "/test/path_test"
       tracker.track_page_view(path)
       tracker_path = tracker[:utmp].dup
 
       assert_equal tracker_path, path
+    end
+
+    should "properly track an event" do
+      tracker = Satellite.get_tracker(:google_analytics, VALID_GOOGLE_ANALYTICS_PARAMS)
+      assert_equal tracker.track_event("test", "unit-test", Time.now.to_s), true
     end
 
     context 'utme' do
