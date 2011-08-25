@@ -32,6 +32,8 @@ pkg
 # RubyMine
 .idea
 
+local_conf.rb
+
 # RVM
 .rvmrc
 

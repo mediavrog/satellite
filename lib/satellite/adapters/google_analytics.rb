@@ -8,16 +8,22 @@ module Satellite
       end
 
       def track
-        puts utm_params.inspect
+        #puts utm_params.inspect
 
-        utm_url = utm_location + "?" + utm_params.to_query
+        utm_url = tracking_url
 
         puts "--------sending request to GA-----------------------"
         puts utm_url
-        #open(utm_url)
+
+        open(utm_url, { "User-Agent" => 'Satellite/0.0.0', "Accept-Language" => 'de' })
 
         # reset events / custom variables here
         utm_params.delete(:utme)
+        true
+      end
+
+      def tracking_url
+        utm_location + "?" + utm_params.to_query
       end
 
       def track_event(category, action, label=nil, value=nil)
@@ -59,16 +65,26 @@ module Satellite
 
       # seems to be the current version
       # search for 'utmwv' in http://www.google-analytics.com/ga.js
-      VERSION = "5.1.5"
+      VERSION = "4.4sh" #"5.1.5"
       UTM_GIF_LOCATION = ".google-analytics.com/__utm.gif"
 
       # adds default params
       def extend_with_default_params(params)
+        utme = params.delete(:utme)
         {
-            :utme => Utme.parse(params[:utme]),
-            :utmwv => VERSION,
+            :utmac => self.class.account_id,
+            :utmcc => '__utma%3D999.999.999.999.999.1%3B', # stub for non-existent cookie,
+            :utmcs => 'UTF-8',
+            :utme => Utme.parse(utme),
+            :utmhid => rand(0x7fffffff).to_s,
             :utmn => rand(0x7fffffff).to_s,
-            :utmac => self.class.account_id
+            :utmvid => rand(0x7fffffff).to_s,
+            :utmwv => VERSION,
+            # should get configured when initializing
+            #:utmhn => 'google-analytics.satellite.local',
+            #:utmr => 'https://rubygems.org/gems/satellite',
+            #:utmp => '/google-analytics',
+            #:utmip => '127.0.0.1',
         }.merge(params)
       end
 
@@ -241,7 +257,7 @@ module Satellite
             predecessor = @contents[slot-1]
 
             has_predecessor = !!predecessor
-            has_scoped_predecessor = !!predecessor.try(:opt_scope)
+            has_scoped_predecessor = !!(predecessor.try(:opt_scope))
 
             star = names.empty? ? '' : '*'
             bang = (slot == 1 || has_predecessor) ? '' : "#{slot}!"
