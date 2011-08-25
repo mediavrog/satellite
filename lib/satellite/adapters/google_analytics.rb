@@ -36,7 +36,7 @@ module Satellite
       end
 
       def track_page_view(path=nil)
-        utm_params.merge({ :utmp => path }) if path
+        self.utm_params = self.utm_params.merge({ :utmp => path }) if path
         track
       end
 
