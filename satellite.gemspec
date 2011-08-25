@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{satellite}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Maik Vlcek}]
-  s.date = %q{2011-08-24}
+  s.date = %q{2011-08-25}
   s.description = %q{Ruby on Rails server-side Analytics Tracker for Google and more}
   s.email = %q{maik.vlcek@mymobai.de}
   s.extra_rdoc_files = [
@@ -19,11 +19,17 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "VERSION",
     "lib/satellite.rb",
+    "lib/satellite/adapters/google_analytics.rb",
+    "lib/satellite/controllers/google_analytics.rb",
+    "lib/support/object.rb",
+    "lib/support/string.rb",
+    "satellite.gemspec",
     "test/helper.rb",
     "test/test_satellite.rb"
   ]
