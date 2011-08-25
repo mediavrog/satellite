@@ -26,11 +26,10 @@ module Satellite
         visitor_uuid = Digest::MD5.hexdigest(ga_visitor_id)
 
         {
-            :utmhn => CGI.escape(domain_name),
-            :utmr => CGI.escape(referral),
-            :utmp => CGI.escape(path),
+            :utmhn => domain_name,
+            :utmr => referral,
+            :utmp => path,
             :utmip => ip,
-            :utmcc => '__utma%3D999.999.999.999.999.1%3B',
             :utmvid => visitor_uuid
         }
       end

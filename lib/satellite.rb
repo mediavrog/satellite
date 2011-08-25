@@ -34,6 +34,14 @@ module Satellite
       @adapter.unset_custom_variable(slot)
     end
 
+    def tracking_url
+      @adapter.tracking_url
+    end
+
+    def type
+      @adapter.class
+    end
+
     def []=(key, value)
       @adapter[key] = value
     end
