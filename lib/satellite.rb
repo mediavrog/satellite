@@ -51,7 +51,7 @@ module Satellite
     end
   end
 
-  def self.get_tracker(type, params = { })
+  def self.create_tracker(type, params = { })
     begin
       tracker_klass = "Satellite::Adapters::#{type.to_s.camelcase}".constantize
     rescue

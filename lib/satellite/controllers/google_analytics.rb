@@ -3,7 +3,7 @@ module Satellite
     module GoogleAnalyticsController
 
       def tracker
-        @tracker ||= Satellite.get_tracker(:google_analytics, ga_params)
+        @tracker ||= Satellite.create_tracker(:google_analytics, ga_params)
       end
 
       protected

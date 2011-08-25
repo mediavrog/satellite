@@ -21,12 +21,12 @@ class TestSatellite < Test::Unit::TestCase
   }
 
   should "create a proper google adapter" do
-    tracker = Satellite.get_tracker(:google_analytics)
+    tracker = Satellite.create_tracker(:google_analytics)
     assert_equal tracker.type, Satellite::Adapters::GoogleAnalytics
   end
 
   should "return any created tracker as tracker interface" do
-    tracker = Satellite.get_tracker(:google_analytics)
+    tracker = Satellite.create_tracker(:google_analytics)
     assert_equal tracker.class, Satellite::TrackerInterface
   end
 
@@ -52,18 +52,18 @@ class TestSatellite < Test::Unit::TestCase
     #utmcc
     #utmu
     should "properly track a page view" do
-      tracker = Satellite.get_tracker(:google_analytics, VALID_GOOGLE_ANALYTICS_PARAMS)
+      tracker = Satellite.create_tracker(:google_analytics, VALID_GOOGLE_ANALYTICS_PARAMS)
       assert_equal tracker.track_page_view, true
     end
 
     should "properly track a custom variable" do
-      tracker = Satellite.get_tracker(:google_analytics, VALID_GOOGLE_ANALYTICS_PARAMS)
+      tracker = Satellite.create_tracker(:google_analytics, VALID_GOOGLE_ANALYTICS_PARAMS)
       tracker.set_custom_variable(1, 'test', 'unit-tester')
       assert_equal tracker.track_page_view, true
     end
 
     should "properly track a page view with given path" do
-      tracker = Satellite.get_tracker(:google_analytics, VALID_GOOGLE_ANALYTICS_PARAMS)
+      tracker = Satellite.create_tracker(:google_analytics, VALID_GOOGLE_ANALYTICS_PARAMS)
 
       path = "/test/path_test"
       tracker.track_page_view(path)
@@ -73,7 +73,7 @@ class TestSatellite < Test::Unit::TestCase
     end
 
     should "properly track an event" do
-      tracker = Satellite.get_tracker(:google_analytics, VALID_GOOGLE_ANALYTICS_PARAMS)
+      tracker = Satellite.create_tracker(:google_analytics, VALID_GOOGLE_ANALYTICS_PARAMS)
       assert_equal tracker.track_event("test", "unit-test", Time.now.to_s), true
     end
 
