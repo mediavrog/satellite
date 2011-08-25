@@ -1,6 +1,6 @@
 module Satellite
   module Controllers
-    class GoogleAnalyticsController
+    module GoogleAnalyticsController
 
       def tracker
         @tracker ||= Satellite.get_tracker(:google_analytics, ga_params)
