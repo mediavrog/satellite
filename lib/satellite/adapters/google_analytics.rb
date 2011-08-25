@@ -78,7 +78,7 @@ module Satellite
         utme = params.delete(:utme)
         {
             :utmac => self.class.account_id,
-            :utmcc => '__utma%3D999.999.999.999.999.1%3B', # stub for non-existent cookie,
+            :utmcc => '__utma=999.999.999.999.999.1;', # stub for non-existent cookie,
             :utmcs => 'UTF-8',
             :utme => Utme.parse(utme),
             :utmhid => rand(0x7fffffff).to_s,
