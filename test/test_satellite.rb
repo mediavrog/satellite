@@ -1,6 +1,4 @@
 require 'helper'
-# used for storing private data like google account_id
-require 'local_conf' if File.exists?('local_conf.rb')
 
 class TestSatellite < Test::Unit::TestCase
 
