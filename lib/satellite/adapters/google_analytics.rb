@@ -13,9 +13,9 @@ module Satellite
         utm_url = tracking_url
 
         #if (debug == true)
-        puts "--------sending request to GA-----------------------"
-        puts @utm_params.inspect
-        puts utm_url
+        #puts "--------sending request to GA-----------------------"
+        #puts @utm_params.inspect
+        #puts utm_url
         #end
 
         # actually send request
@@ -210,6 +210,8 @@ module Satellite
         end
       end
 
+      # The total combined length of any custom variable name and value may not exceed 64 bytes.
+      # http://code.google.com/intl/en/apis/analytics/docs/tracking/gaTrackingCustomVariables.html
       CustomVariable = Struct.new(:name, :value, :opt_scope)
 
       class CustomVariables

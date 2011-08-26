@@ -9,6 +9,10 @@ Ruby on Rails server-side Analytics Tracker for Google and more
 * http://code.google.com/intl/de-DE/apis/analytics/docs/tracking/gaTrackingTroubleshooting.html#gifParameters
 * http://code.google.com/intl/en/apis/analytics/docs/tracking/gaTrackingCustomVariables.html
 
+== Libs for other Languages
+
+* PHP: http://code.google.com/p/php-ga/
+
 == Copyright
 
 Copyright (c) 2011 Maik Vlcek. MIT-License.
