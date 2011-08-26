@@ -26,7 +26,6 @@ Gem::Specification.new do |s|
     "VERSION",
     "lib/satellite.rb",
     "lib/satellite/adapters/google_analytics.rb",
-    "lib/satellite/controllers/google_analytics.rb",
     "lib/support/object.rb",
     "lib/support/string.rb",
     "satellite.gemspec",
