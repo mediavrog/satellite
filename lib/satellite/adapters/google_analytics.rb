@@ -5,7 +5,7 @@ module Satellite
       attr_accessor :debug, :user_agent, :accept_language
 
       def initialize(params, use_ssl=false)
-        self.utm_params = extend_with_default_params(params)
+        @utm_params = extend_with_default_params(params)
         self.utm_location = (use_ssl ? 'https://ssl' : 'http://www') + UTM_GIF_LOCATION
       end
 
@@ -14,47 +14,50 @@ module Satellite
 
         #if (debug == true)
           puts "--------sending request to GA-----------------------"
-          puts utm_params.inspect
+          puts @utm_params.inspect
           puts utm_url
         #end
 
         # actually send request
-        open(utm_url, { "User-Agent" => 'Satellite/0.2.1', "Accept-Language" => utm_params[:utmul] || 'de' })
+        open(utm_url, { "User-Agent" => 'Satellite/0.2.1', "Accept-Language" => self[:utmul] || 'de' })
 
-        # reset events / custom variables here
-        utm_params.delete(:utme)
+        # reset events / custom variables here so they won't be reused in later requests
+        self[:utme] = Utme.new
         true
       end
 
       def tracking_url
-        utm_location + "?" + utm_params.to_query
+        utm_location + "?" + @utm_params.to_query
       end
 
       def track_event(category, action, label=nil, value=nil)
-        utm_params[:utme].set_event(category, action, label, value)
+        self[:utme] = Utme.new if self[:utme].nil?
+        self[:utme].set_event(category, action, label, value)
         track
       end
 
       def track_page_view(path=nil)
-        self.utm_params = self.utm_params.merge({ :utmp => path }) if path
+        self[:utmp] = path if path
         track
       end
 
       def set_custom_variable(index, name, value, scope=nil)
-        utm_params[:utme].set_custom_variable(index, name, value, scope)
+        self[:utme] = Utme.new if self[:utme].nil?
+        self[:utme].set_custom_variable(index, name, value, scope)
       end
 
       def unset_custom_variable(index)
-        utm_params[:utme].unset_custom_variable(index)
+        self[:utme] = Utme.new if self[:utme].nil?
+        self[:utme].unset_custom_variable(index)
       end
 
       def []=(key, value)
         value = Utme.parse(value) if key.to_s == 'utme'
-        utm_params[key] = value
+        @utm_params[key] = value
       end
 
       def [](key)
-        utm_params[key]
+        @utm_params[key]
       end
 
       class << self
@@ -63,7 +66,7 @@ module Satellite
 
       protected
 
-      attr_accessor :utm_params, :utm_location
+      attr_accessor :utm_location
 
       private
 
