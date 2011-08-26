@@ -13,9 +13,9 @@ module Satellite
         utm_url = tracking_url
 
         #if (debug == true)
-          puts "--------sending request to GA-----------------------"
-          puts @utm_params.inspect
-          puts utm_url
+        puts "--------sending request to GA-----------------------"
+        puts @utm_params.inspect
+        puts utm_url
         #end
 
         # actually send request
@@ -88,6 +88,7 @@ module Satellite
             :utmn => rand(0x7fffffff).to_s,
             :utmvid => rand(0x7fffffff).to_s,
             :utmwv => VERSION,
+            :utmul => 'en',
             # should get configured when initializing
             #:utmhn => 'google-analytics.satellite.local',
             #:utmr => 'https://rubygems.org/gems/satellite',
